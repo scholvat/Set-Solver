@@ -1,8 +1,8 @@
 package uwaterloo.setgame.util;
 
 import uwaterloo.setgame.util.cardfeatures.Color;
-import uwaterloo.setgame.util.cardfeatures.fills.Fill;
-import uwaterloo.setgame.util.cardfeatures.shapes.Shape;
+import uwaterloo.setgame.util.cardfeatures.Fill;
+import uwaterloo.setgame.util.cardfeatures.Shape;
 
 /**
  * Created by Stephen on 11/28/2016.
@@ -25,12 +25,7 @@ public class Card {
     //getters and setters, and toStrings
     @Override
     public String toString() {
-        return "Card{" +
-                "shape=" + shape +
-                ", color=" + color +
-                ", fill=" + fill +
-                ", number=" + number +
-                '}';
+        return "Card: " + Integer.toString(number) + " " + fill + " " +color + " " + shape;
     }
 
     public Shape getShape() {

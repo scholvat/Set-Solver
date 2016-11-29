@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import uwaterloo.setgame.util.cardfeatures.Color;
-import uwaterloo.setgame.util.cardfeatures.fills.Fill;
-import uwaterloo.setgame.util.cardfeatures.shapes.Shape;
+import uwaterloo.setgame.util.cardfeatures.Fill;
+import uwaterloo.setgame.util.cardfeatures.Shape;
 
 /**
  * Created by Stephen on 11/28/2016.
@@ -20,7 +20,7 @@ public class Deck {
             for(int shape=0;shape<3;shape++){
                 for(int fill=0;fill<3;fill++){
                     for(int color=0;color<3;color++){
-                        cards.add(new Card(new Shape(shape),new Color(),new Fill(),num));
+                        cards.add(new Card(new Shape(shape),new Color(color),new Fill(fill),num));
                     }
                 }
             }
@@ -31,14 +31,15 @@ public class Deck {
         Random rand = new Random();
         ArrayList<Card> sortedCards = (ArrayList<Card>) cards.clone();
         cards.clear();
-        Log.d("Deck", String.valueOf(cards.size()));
+
         //loop through all sorted cards
         cards.add(sortedCards.get(0));
         sortedCards.remove(0);
-        for(Card card : sortedCards){
-            Log.d("Deck", String.valueOf(cards.size()));
-            //add sorted cards in random spots in the cards deck
-            cards.add(rand.nextInt(cards.size()),card);
+        while(sortedCards.size()>0){
+            int randIndex = rand.nextInt(sortedCards.size());
+            cards.add(rand.nextInt(cards.size()),sortedCards.get(randIndex));
+            sortedCards.remove(randIndex);
+
         }
     }
 
