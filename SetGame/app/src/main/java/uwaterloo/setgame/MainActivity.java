@@ -2,6 +2,7 @@ package uwaterloo.setgame;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         deck.shuffle();
         ArrayList<Card> cards = deck.getCards();
         for(Card c : cards){
-
+            Log.d("MainActivity",c.toString());
         }
     }
 }

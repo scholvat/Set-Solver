@@ -1,5 +1,7 @@
 package uwaterloo.setgame.util;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -29,8 +31,12 @@ public class Deck {
         Random rand = new Random();
         ArrayList<Card> sortedCards = (ArrayList<Card>) cards.clone();
         cards.clear();
+        Log.d("Deck", String.valueOf(cards.size()));
         //loop through all sorted cards
+        cards.add(sortedCards.get(0));
+        sortedCards.remove(0);
         for(Card card : sortedCards){
+            Log.d("Deck", String.valueOf(cards.size()));
             //add sorted cards in random spots in the cards deck
             cards.add(rand.nextInt(cards.size()),card);
         }
