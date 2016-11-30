@@ -15,6 +15,7 @@ import uwaterloo.setgame.util.cardfeatures.Shape;
 
 public class Deck {
     ArrayList<Card> cards = new ArrayList<Card>();
+
     public Deck() {
         for(int num=1;num<4;num++){
             for(int shape=0;shape<3;shape++){

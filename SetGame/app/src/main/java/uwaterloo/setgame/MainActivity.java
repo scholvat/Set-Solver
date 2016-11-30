@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Card> cards = deck.getCards();
         for(Card c : cards){
             Log.d("MainActivity",c.toString());
+
         }
     }
 }
