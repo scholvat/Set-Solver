@@ -21,7 +21,17 @@ public class MainActivity extends AppCompatActivity {
 
         deck.shuffle();
 
-        Deck field = deck.drawCards(12);
+        Deck field = deck.drawCards(9);
+
+        for(Card c : field.getCards()){
+            Log.d("MainActivity",c.toString());
+
+        }
+        for(Set s :field.getSets()){
+            Log.d("MainActivity",s.toString());
+        }
+
+        field.addCards(deck.drawCards(3));
 
         for(Card c : field.getCards()){
             Log.d("MainActivity",c.toString());

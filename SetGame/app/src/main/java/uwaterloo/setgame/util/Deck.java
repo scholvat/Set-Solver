@@ -63,6 +63,13 @@ public class Deck {
         return new Deck(drawnCards);
     }
 
+    public void addCards(ArrayList<Card> addedCards){
+        cards.addAll(addedCards);
+    }
+    public void addCards(Deck addedDeck){
+        addCards(addedDeck.getCards());
+    }
+
     public void shuffle(){
         Random rand = new Random();
         ArrayList<Card> sortedCards = (ArrayList<Card>) cards.clone();
