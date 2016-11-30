@@ -1,5 +1,7 @@
 package uwaterloo.setgame.util;
 
+import java.util.Arrays;
+
 /**
  * Created by Stephen on 11/28/2016.
  * Holds information for a set of 3 cards
@@ -13,7 +15,7 @@ public class Set {
         this.cards=cards;
     }
 
-    public boolean checkSet(){
+    public boolean isSet(){
         //color
         if(!((    cards[0].getColor().getID() == cards[1].getColor().getID()
                 && cards[1].getColor().getID()== cards[2].getColor().getID())
@@ -47,5 +49,12 @@ public class Set {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Set{" +
+                "cards=" + Arrays.toString(cards) +
+                '}';
     }
 }

@@ -28,6 +28,41 @@ public class Deck {
         }
     }
 
+    public Deck(ArrayList<Card> cards){
+        this.cards=cards;
+    }
+
+    public ArrayList<Set> getSets(){
+        ArrayList<Set> sets = new ArrayList<Set>();
+        try {
+            for(int i=0;i<cards.size()-2;i++) {
+                for (int j = i+1; j < cards.size()-1; j++) {
+                    for (int k = j+1; k < cards.size(); k++) {
+
+                        Set set = new Set(new Card[]{cards.get(i), cards.get(j), cards.get(k)});
+                        if (set.isSet()) {
+                            sets.add(set);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sets;
+    }
+
+    public Deck drawCards(int number){
+        ArrayList<Card> drawnCards = new ArrayList<>();
+        if(number>cards.size()){
+            return null;
+        }
+        for(int i=0; i<number; i++){
+            drawnCards.add(cards.remove(0));
+        }
+        return new Deck(drawnCards);
+    }
+
     public void shuffle(){
         Random rand = new Random();
         ArrayList<Card> sortedCards = (ArrayList<Card>) cards.clone();

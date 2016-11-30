@@ -18,17 +18,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Deck deck = new Deck();
-        try {
-            Set set = new Set(new Card[]{deck.getCard(0),deck.getCard(1),deck.getCard(4)});
-            Log.d("MainActivity", "Set?:" + String.valueOf(set.checkSet()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         deck.shuffle();
-        ArrayList<Card> cards = deck.getCards();
-        for(Card c : cards){
+
+        Deck field = deck.drawCards(12);
+
+        for(Card c : field.getCards()){
             Log.d("MainActivity",c.toString());
 
+        }
+        for(Set s :field.getSets()){
+            Log.d("MainActivity",s.toString());
         }
     }
 }
