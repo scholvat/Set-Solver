@@ -3,7 +3,6 @@ package uwaterloo.setgame.util;
 import java.util.Arrays;
 
 /**
- * Created by Stephen on 11/28/2016.
  * Holds information for a set of 3 cards
  */
 public class Set {
@@ -41,6 +40,7 @@ public class Set {
             return false;
         }
         //shape
+        //noinspection RedundantIfStatement
         if(!((    cards[0].getShape().getID() == cards[1].getShape().getID()
                 && cards[1].getShape().getID()== cards[2].getShape().getID())
                 ||(cards[0].getShape().getID() != cards[1].getShape().getID()

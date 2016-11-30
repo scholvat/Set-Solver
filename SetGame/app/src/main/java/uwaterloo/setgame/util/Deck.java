@@ -1,7 +1,5 @@
 package uwaterloo.setgame.util;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,12 +7,10 @@ import uwaterloo.setgame.util.cardfeatures.Color;
 import uwaterloo.setgame.util.cardfeatures.Fill;
 import uwaterloo.setgame.util.cardfeatures.Shape;
 
-/**
- * Created by Stephen on 11/28/2016.
- */
+
 
 public class Deck {
-    ArrayList<Card> cards = new ArrayList<Card>();
+    ArrayList<Card> cards = new ArrayList<>();
 
     public Deck() {
         for(int num=1;num<4;num++){
@@ -33,7 +29,7 @@ public class Deck {
     }
 
     public ArrayList<Set> getSets(){
-        ArrayList<Set> sets = new ArrayList<Set>();
+        ArrayList<Set> sets = new ArrayList<>();
         try {
             for(int i=0;i<cards.size()-2;i++) {
                 for (int j = i+1; j < cards.size()-1; j++) {
@@ -72,8 +68,8 @@ public class Deck {
 
     public void shuffle(){
         Random rand = new Random();
-        ArrayList<Card> sortedCards = (ArrayList<Card>) cards.clone();
-        cards.clear();
+        ArrayList<Card> sortedCards = cards;
+        cards = new ArrayList<>();
 
         //loop through all sorted cards
         cards.add(sortedCards.get(0));
