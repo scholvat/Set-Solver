@@ -47,6 +47,9 @@ public class Deck {
     public ArrayList<Card> getCards() {
         return cards;
     }
+    public Card getCard(int index) {
+        return cards.get(index);
+    }
 
     public void setCards(ArrayList<Card> cards) {
         this.cards = cards;

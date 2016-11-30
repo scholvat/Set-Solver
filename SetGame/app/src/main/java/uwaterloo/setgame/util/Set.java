@@ -46,5 +46,6 @@ public class Set {
                 && cards[0].getShape().getID()!= cards[2].getShape().getID()))){
             return false;
         }
+        return true;
     }
 }
