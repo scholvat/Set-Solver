@@ -1,8 +1,6 @@
 package uwaterloo.setgame.util.cardfeatures;
 
-/**
- * Created by Stephen on 11/29/2016.
- */
+
 public class Feature {
 
     protected String[] NAME = {"","",""};
