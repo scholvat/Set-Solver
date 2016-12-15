@@ -47,4 +47,5 @@ Temporary Items
 .apdisk
 
 #build files
-.gradle/
+gradle/
+idea/
