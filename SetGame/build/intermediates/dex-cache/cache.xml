@@ -2,53 +2,60 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\exploded-aar\SetGame\openCVLibrary310\unspecified\jars\classes.jar"
-        jumboMode="false"
+        jar="C:\Users\Stephen\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
         revision="23.0.3"
-        sha1="9e8bfbb66018f2d882ab6dbd334e04829c7948ae">
-        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\pre-dexed\debug\SetGame-openCVLibrary310-unspecified_b5ea998d6c15c2c9eb520b34812e66e8d8e5078f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
-        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.3.0_79174511c55a5da48f140e63095cab8c344a718f.jar" />
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_4612bc929443c906a19cf7ad9d3d9e8bbef3927c\classes.dex" />
     </item>
     <item
         jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
-        jumboMode="false"
+        jumboMode="true"
         revision="23.0.3"
         sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
-        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-23.3.0_1953ae89016718b8c76a1ea9d51ef0c2021523be.jar" />
+        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_1953ae89016718b8c76a1ea9d51ef0c2021523be\classes.dex" />
     </item>
     <item
         jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
-        jumboMode="false"
+        jumboMode="true"
         revision="23.0.3"
         sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
-        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.3.0_302f79e8b6a92f41b960e8a2766cd67098ef8732.jar" />
+        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_302f79e8b6a92f41b960e8a2766cd67098ef8732\classes.dex" />
     </item>
     <item
         jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
-        jumboMode="false"
+        jumboMode="true"
         revision="23.0.3"
         sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
-        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.3.0_09368de8afea96511bec075c319a5f027b765de6.jar" />
+        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_09368de8afea96511bec075c319a5f027b765de6\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Stephen\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
-        jumboMode="false"
+        jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
         revision="23.0.3"
-        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
-        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\pre-dexed\debug\support-annotations-23.3.0_4612bc929443c906a19cf7ad9d3d9e8bbef3927c.jar" />
+        sha1="892bfa1019693c9344a70b9a22c09941c1e37327">
+        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_933ecba0deef020fd5a1d595a80c581fdd9c0068\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_79174511c55a5da48f140e63095cab8c344a718f\classes.dex" />
     </item>
     <item
         jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
-        jumboMode="false"
+        jumboMode="true"
         revision="23.0.3"
         sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
-        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\pre-dexed\debug\internal_impl-23.3.0_9ec41fd677dd1d698e1cacef63121b871d12ae17.jar" />
+        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_9ec41fd677dd1d698e1cacef63121b871d12ae17\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="0d83018b9d0af769759d1b4d3788497afb4cb1cd">
+        <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_ed01b7595cc42b573597eabf5039428176cfd15d\classes.dex" />
     </item>
 
 </items>
