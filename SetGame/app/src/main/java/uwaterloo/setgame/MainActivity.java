@@ -18,11 +18,14 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 import uwaterloo.setgame.util.Card;
 import uwaterloo.setgame.util.Deck;
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
 
     private static final String TAG="MainActivity";
 
-    Mat mRgba, imgGray, imgCanny, imgHSV,imgHSVThreshold;
+    Mat mRgba, imgGray, imgBlur,imgCanny, imgHSV,imgHSVThreshold, imgDilate;
 
     //debug stuff
     Spinner cameraView;
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
         //debug spinner to change filters
         cameraView = (Spinner) findViewById(R.id.camera_view_spinner);
         String[] arraySpinner = new String[] {
-                "Normal", "Black and White", "Canny", "HSV"
+                "Normal", "Black and White", "Canny", "HSV","Blur","Dilate"
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
@@ -130,9 +133,11 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
     public void onCameraViewStarted(int width, int height) {
         mRgba = new Mat(height,width, CvType.CV_8UC4);
         imgGray = new Mat(height,width, CvType.CV_8UC1);
+        imgBlur = new Mat(height,width, CvType.CV_8UC1);
         imgCanny = new Mat(height,width, CvType.CV_8UC1);
         imgHSV = new Mat(height,width, CvType.CV_8UC3);
         imgHSVThreshold = new Mat(height,width, CvType.CV_8UC3);
+        imgDilate = new Mat(height,width, CvType.CV_8UC1);
     }
 
     @Override
@@ -151,8 +156,13 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
         try {
             Core.inRange(imgHSV, new Scalar(Integer.valueOf(b1.getText().toString()), Integer.valueOf(b2.getText().toString()), Integer.valueOf(b3.getText().toString()))
                     , new Scalar(Integer.valueOf(t1.getText().toString()), Integer.valueOf(t2.getText().toString()), Integer.valueOf(t3.getText().toString())), imgHSVThreshold);
-            Imgproc.Canny(imgGray,imgCanny,50,150);
+            Imgproc.GaussianBlur(imgGray, imgBlur, new Size(Integer.valueOf(b1.getText().toString()),Integer.valueOf(b1.getText().toString())),0);
+            Imgproc.Canny(imgBlur,imgCanny,50,150);
 
+            Imgproc.dilate(imgCanny,imgDilate,new Mat());
+
+            List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+            Imgproc.findContours(imgCanny,contours,new Mat(),Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 
 
             //debug spinner to change filters
@@ -160,17 +170,22 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
             if(cameraFilter.compareTo("Normal")==0){
                 return mRgba;
             }else if(cameraFilter.compareTo("Black and White")==0){
-                //return imgGray;
-                return imgHSVThreshold;
+                return imgGray;
             }else if(cameraFilter.compareTo("HSV")==0){
-                return imgHSV;
-            }else{
+                return imgHSVThreshold;
+            }else if(cameraFilter.compareTo("Blur")==0){
+                return imgBlur;
+            }else if(cameraFilter.compareTo("Dilate")==0){
+            return imgDilate;
+            }
+            else{
                 return imgCanny;
             }
-        }catch(NumberFormatException e){
-
+        }catch(Exception e){
+            Log.e(TAG,e.toString());
+            return mRgba;
         }
-        return mRgba;
+
 
     }
 
