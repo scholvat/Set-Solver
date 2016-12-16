@@ -1,18 +1,27 @@
 package uwaterloo.setgame;
 
+import android.graphics.Camera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import uwaterloo.setgame.util.Card;
@@ -22,7 +31,11 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
 
     private static final String TAG="MainActivity";
 
-    Mat mRgba;
+    Mat mRgba, imgGray, imgCanny, imgHSV,imgHSVThreshold;
+
+    //debug stuff
+    Spinner cameraView;
+    EditText b1,b2,b3,t1,t2,t3;
 
     JavaCameraView javaCameraView;
     BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -55,6 +68,26 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
         javaCameraView = (JavaCameraView) findViewById(R.id.java_camera_view);
         javaCameraView.setVisibility(SurfaceView.VISIBLE);
         javaCameraView.setCvCameraViewListener(this);
+
+
+        //debug spinner to change filters
+        cameraView = (Spinner) findViewById(R.id.camera_view_spinner);
+        String[] arraySpinner = new String[] {
+                "Normal", "Black and White", "Canny", "HSV"
+        };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arraySpinner);
+        cameraView.setAdapter(adapter);
+
+        //debug to change HSV
+        b1 = (EditText) findViewById(R.id.editText);
+        t1 = (EditText) findViewById(R.id.editText2);
+
+        b2 = (EditText) findViewById(R.id.editText3);
+        t2 = (EditText) findViewById(R.id.editText4);
+
+        b3 = (EditText) findViewById(R.id.editText5);
+        t3 = (EditText) findViewById(R.id.editText6);
 
 
         /*Deck deck = new Deck();
@@ -96,6 +129,10 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
     @Override
     public void onCameraViewStarted(int width, int height) {
         mRgba = new Mat(height,width, CvType.CV_8UC4);
+        imgGray = new Mat(height,width, CvType.CV_8UC1);
+        imgCanny = new Mat(height,width, CvType.CV_8UC1);
+        imgHSV = new Mat(height,width, CvType.CV_8UC3);
+        imgHSVThreshold = new Mat(height,width, CvType.CV_8UC3);
     }
 
     @Override
@@ -106,6 +143,36 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRgba = inputFrame.rgba();
+
+        Imgproc.cvtColor(mRgba,imgGray,Imgproc.COLOR_RGB2GRAY);
+
+        Imgproc.cvtColor(mRgba,imgHSV,Imgproc.COLOR_RGB2HSV);
+
+        try {
+            Core.inRange(imgHSV, new Scalar(Integer.valueOf(b1.getText().toString()), Integer.valueOf(b2.getText().toString()), Integer.valueOf(b3.getText().toString()))
+                    , new Scalar(Integer.valueOf(t1.getText().toString()), Integer.valueOf(t2.getText().toString()), Integer.valueOf(t3.getText().toString())), imgHSVThreshold);
+            Imgproc.Canny(imgGray,imgCanny,50,150);
+
+
+
+            //debug spinner to change filters
+            String cameraFilter = cameraView.getSelectedItem().toString();
+            if(cameraFilter.compareTo("Normal")==0){
+                return mRgba;
+            }else if(cameraFilter.compareTo("Black and White")==0){
+                //return imgGray;
+                return imgHSVThreshold;
+            }else if(cameraFilter.compareTo("HSV")==0){
+                return imgHSV;
+            }else{
+                return imgCanny;
+            }
+        }catch(NumberFormatException e){
+
+        }
         return mRgba;
+
     }
+
+
 }
