@@ -33,7 +33,7 @@
         jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="892bfa1019693c9344a70b9a22c09941c1e37327">
+        sha1="1c3151333b97a27fc56aeb1bef9ad2dbdbbeb936">
         <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_933ecba0deef020fd5a1d595a80c581fdd9c0068\classes.dex" />
     </item>
     <item
@@ -54,7 +54,7 @@
         jar="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="0d83018b9d0af769759d1b4d3788497afb4cb1cd">
+        sha1="f32e11bd3591fea307d13272eea86be7d2f34adf">
         <dex dex="C:\Users\Stephen\Documents\GitHub\Set-Solver\SetGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_ed01b7595cc42b573597eabf5039428176cfd15d\classes.dex" />
     </item>
 
