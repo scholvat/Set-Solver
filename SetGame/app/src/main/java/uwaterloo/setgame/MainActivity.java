@@ -1,16 +1,12 @@
 package uwaterloo.setgame;
 
-import android.graphics.Camera;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -22,16 +18,15 @@ import org.opencv.core.CvException;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import uwaterloo.setgame.util.Card;
-import uwaterloo.setgame.util.Deck;
 
 public class MainActivity extends AppCompatActivity  implements CameraBridgeViewBase.CvCameraViewListener2{
 
@@ -108,6 +103,7 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
         super.onPause();
         if(javaCameraView!=null){
             javaCameraView.disableView();
+
         }
     }
 
@@ -170,32 +166,64 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
             //Find Contours
             List<MatOfPoint> contours = new ArrayList<>();
             Imgproc.findContours(imgCanny,contours,new Mat(),Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-            Log.d(TAG,"Size of contours: " + String.valueOf(contours.size()));
+
+            //approx polygons
+            //Log.d(TAG,"Size of contours: " + String.valueOf(contours.size()));
+            if(contours.size()>500){
+                return mRgba;
+            }
+            MatOfPoint2f contours2f = new MatOfPoint2f();
+            MatOfPoint2f approx = new MatOfPoint2f();
+            List<MatOfPoint> polygons = new ArrayList<>();
+            imgContours  = new Mat(imgContours.height(),imgContours.width(), CvType.CV_8UC3); //TODO duplicated?
+
+            for(int i=0; i<contours.size();i++){
+                contours.get(i).convertTo(contours2f, CvType.CV_32FC2);
+                Imgproc.approxPolyDP(contours2f, approx, Integer.valueOf(t1.getText().toString()), true);
+                // convert back to MatOfPoint and put it back in the list
+                //approx.convertTo(imgContours, CvType.CV_32S);
+                if(approx.rows()==4){
+                    MatOfPoint points = new MatOfPoint(approx.toArray());
+                    polygons.add(points);
+                }
+
+                Log.d(TAG, String.valueOf(approx.rows()));
+
+                //Rect rect = Imgproc.boundingRect(points);
+                //Imgproc.rectangle(imgContours, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar(255, 0, 0));
+        }
+
+
+            //Imgproc.approxPolyDP(new MatOfPoint2f(contours.toArray()),approx,5,true);
 
             //Draw contours
-            imgContours  = new Mat(imgContours.height(),imgContours.width(), CvType.CV_8UC3);
-            Imgproc.drawContours(imgContours, contours, -1, new Scalar(255, 255, 255), -1);
+            //imgContours  = new Mat(imgContours.height(),imgContours.width(), CvType.CV_8UC3);
+            Imgproc.drawContours(imgContours, contours, -1, new Scalar(0, 255, 0), -1);
 
-            Mat element = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_RECT,new Size(2, 2));
+            Imgproc.drawContours(imgGray,polygons,-1,new Scalar(0,0,255),4);
+
+            //Imgproc.HoughLines(imgCanny,imgContours,Integer.valueOf(t1.getText().toString()),Integer.valueOf(t2.getText().toString()),Integer.valueOf(t3.getText().toString()));
+
+            //Mat element = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_RECT,new Size(2, 2));
 
 
             //debug spinner to change filters
             String cameraFilter = cameraView.getSelectedItem().toString();
             if(cameraFilter.compareTo("Normal")==0){
-                Log.d(TAG,"RGBA");
+                //Log.d(TAG,"RGBA");
                 return mRgba;
             }else if(cameraFilter.compareTo("Black and White")==0){
-                Log.d(TAG,"Gray");
+                //Log.d(TAG,"Gray");
                 return imgGray;
             }else if(cameraFilter.compareTo("HSV")==0){
-                Log.d(TAG,"HSV");
+                //Log.d(TAG,"HSV");
                 return imgContours;
             }else if(cameraFilter.compareTo("Blur")==0){
-                Log.d(TAG,"Blur");
+                //Log.d(TAG,"Blur");
                 return imgBlur;
             }else if(cameraFilter.compareTo("Dilate")==0){
-                Log.d(TAG,"dilate");
-            return element;
+                //Log.d(TAG,"dilate");
+            //return element;
             }
             else{
                 return imgCanny;
