@@ -15,107 +15,95 @@
             android:layout_height="700px"
             android:id="@+id/java_camera_view" />
 
-        <LinearLayout
-            android:orientation="vertical"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/debug_params">
 
-            <Spinner
-            android:id="@+id/camera_view_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
-            <TableLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/HSV_debug">
+                android:layout_height="match_parent">
 
-                <TableRow
+                <EditText
+                    android:text="0"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/editText"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/editText2"
+                    android:layout_toEndOf="@+id/editText2" />
 
-                    <EditText
-                        android:text="0"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/editText"
-                        android:layout_alignParentTop="true"
-                        android:layout_toRightOf="@+id/editText2"
-                        android:layout_toEndOf="@+id/editText2" />
+                <EditText
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editText2"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                    android:layout_column="1" />
+            </TableRow>
 
-                    <EditText
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
                     android:text="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/editText2"
+                    android:id="@+id/editText3"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                        android:layout_column="1" />
-                </TableRow>
+                    android:layout_toRightOf="@+id/editText4"
+                    android:layout_toEndOf="@+id/editText4" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <EditText
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editText4"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                    android:layout_column="1" />
+            </TableRow>
 
-                    <EditText
-                        android:text="0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/editText3"
-                        android:layout_alignParentTop="true"
-                        android:layout_toRightOf="@+id/editText4"
-                        android:layout_toEndOf="@+id/editText4" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                    <EditText
+                <EditText
                     android:text="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/editText4"
+                    android:id="@+id/editText5"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                        android:layout_column="1" />
-                </TableRow>
+                    android:layout_toRightOf="@+id/editText6"
+                    android:layout_toEndOf="@+id/editText6" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <EditText
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editText6"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            </TableRow>
 
-                    <EditText
-                        android:text="0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/editText5"
-                        android:layout_alignParentTop="true"
-                        android:layout_toRightOf="@+id/editText6"
-                        android:layout_toEndOf="@+id/editText6" />
-
-                    <EditText
-                    android:text="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/editText6"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-                </TableRow>
-
-            </TableLayout>
-
-        </LinearLayout>
+        </TableLayout>
 
     </LinearLayout>
 </ScrollView>

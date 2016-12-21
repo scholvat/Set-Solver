@@ -36,6 +36,7 @@ public class CardFinder {
         //apply filters
         applyFilters(img,7,50,150);
         //findRect
+        List<MatOfPoint> rectangles = findRect(img, 15);
         //Refilter Rectangle
         //Verify Card
         //Detect Card attributes
