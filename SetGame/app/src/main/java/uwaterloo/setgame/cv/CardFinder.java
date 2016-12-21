@@ -1,7 +1,5 @@
 package uwaterloo.setgame.cv;
 
-import android.util.Log;
-
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -11,9 +9,7 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import uwaterloo.setgame.util.Card;
 import uwaterloo.setgame.util.Deck;
@@ -21,25 +17,24 @@ import uwaterloo.setgame.util.cardfeatures.Color;
 import uwaterloo.setgame.util.cardfeatures.Fill;
 import uwaterloo.setgame.util.cardfeatures.Shape;
 
-/**
- * Created by Stephen on 12/20/2016.
- */
+
 public class CardFinder {
     private static final String TAG="CardFinder";
 
-    Card card;
     int w,h;
 
     public CardFinder(int w, int h){
-        card = new Card(null,null,null,0);
         this.w=w;
         this.h=h;
     }
 
     public Deck findCards(Mat imgSrc){
-
+        Mat imgOriginal = imgSrc.clone();
+        //Filter image
         Mat img = applyFilters(imgSrc,7,50,150);
+        //Find Rectangles
         List<MatOfPoint> rectangles = findRect(img, 15);
+        //Draw Rectangles to Screen in Red
         Imgproc.drawContours(imgSrc,rectangles,-1,new Scalar(255,0,0),4);
 
         //Refilter Rectangle
