@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
         //debug spinner to change filters
         cameraView = (Spinner) findViewById(R.id.camera_view_spinner);
         String[] arraySpinner = new String[] {
-                "Normal", "Black and White", "Canny", "HSV","Blur","Dilate"
+                "Normal", "Black and White", "Canny", "Polygons","Blur","Dilate"
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
             }else if(cameraFilter.compareTo("Black and White")==0){
                 //Log.d(TAG,"Gray");
                 return imgGray;
-            }else if(cameraFilter.compareTo("HSV")==0){
+            }else if(cameraFilter.compareTo("Polygons")==0){
                 //Log.d(TAG,"HSV");
                 return imgContours;
             }else if(cameraFilter.compareTo("Blur")==0){
