@@ -152,11 +152,6 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
             //Convert to Grayscale
             Imgproc.cvtColor(mRgba,imgGray,Imgproc.COLOR_RGB2GRAY);
 
-            //Imgproc.cvtColor(mRgba,imgHSV,Imgproc.COLOR_RGB2HSV);
-
-            //Core.inRange(imgHSV, new Scalar(Integer.valueOf(b1.getText().toString()), Integer.valueOf(b2.getText().toString()), Integer.valueOf(b3.getText().toString()))
-                    //, new Scalar(Integer.valueOf(t1.getText().toString()), Integer.valueOf(t2.getText().toString()), Integer.valueOf(t3.getText().toString())), imgHSVThreshold);
-
             //Blur Image
             Imgproc.GaussianBlur(imgGray, imgBlur, new Size(Integer.valueOf(b1.getText().toString()),Integer.valueOf(b1.getText().toString())),0);
 
@@ -169,43 +164,36 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
 
             //approx polygons
             //Log.d(TAG,"Size of contours: " + String.valueOf(contours.size()));
-            if(contours.size()>500){
-                return mRgba;
-            }
-            MatOfPoint2f contours2f = new MatOfPoint2f();
-            MatOfPoint2f approx = new MatOfPoint2f();
-            List<MatOfPoint> polygons = new ArrayList<>();
-            imgContours  = new Mat(imgContours.height(),imgContours.width(), CvType.CV_8UC3); //TODO duplicated?
+            if(contours.size()>500){return mRgba;}
 
+            MatOfPoint2f contours2f = new MatOfPoint2f();  //converts contours from MatOfPoints to MatOfPoints2f
+            MatOfPoint2f approx = new MatOfPoint2f();      //resulting MatOfPoint2f from apporxPolyDP
+            List<MatOfPoint> polygons = new ArrayList<>(); //Resulting polygonal contours, which hopefully consist of cards
+            imgContours  = new Mat(imgContours.height(),imgContours.width(), CvType.CV_8UC3); //Clear imgContours
+
+            //loop through all contours
             for(int i=0; i<contours.size();i++){
+                //convert contour to MatOfPoint2f
                 contours.get(i).convertTo(contours2f, CvType.CV_32FC2);
+
+                //approximate polygons, using t1 as epsilon for debugging
                 Imgproc.approxPolyDP(contours2f, approx, Integer.valueOf(t1.getText().toString()), true);
-                // convert back to MatOfPoint and put it back in the list
-                //approx.convertTo(imgContours, CvType.CV_32S);
+
+                //check if it is a rectangle
                 if(approx.rows()==4){
+                    //convert and add to polygons (type Contours)
                     MatOfPoint points = new MatOfPoint(approx.toArray());
                     polygons.add(points);
                 }
 
-                Log.d(TAG, String.valueOf(approx.rows()));
-
-                //Rect rect = Imgproc.boundingRect(points);
-                //Imgproc.rectangle(imgContours, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar(255, 0, 0));
-        }
-
-
-            //Imgproc.approxPolyDP(new MatOfPoint2f(contours.toArray()),approx,5,true);
+                //Log.d(TAG, String.valueOf(approx.rows()));
+            }
 
             //Draw contours
-            //imgContours  = new Mat(imgContours.height(),imgContours.width(), CvType.CV_8UC3);
             Imgproc.drawContours(imgContours, contours, -1, new Scalar(0, 255, 0), -1);
 
+            //Draw Polygons
             Imgproc.drawContours(imgGray,polygons,-1,new Scalar(0,0,255),4);
-
-            //Imgproc.HoughLines(imgCanny,imgContours,Integer.valueOf(t1.getText().toString()),Integer.valueOf(t2.getText().toString()),Integer.valueOf(t3.getText().toString()));
-
-            //Mat element = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_RECT,new Size(2, 2));
-
 
             //debug spinner to change filters
             String cameraFilter = cameraView.getSelectedItem().toString();
