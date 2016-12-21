@@ -28,11 +28,15 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
+import uwaterloo.setgame.cv.CardFinder;
+
 public class MainActivity extends AppCompatActivity  implements CameraBridgeViewBase.CvCameraViewListener2{
 
     private static final String TAG="MainActivity";
 
     Mat mRgba, imgGray, imgBlur,imgCanny, imgHSV,imgContours, imgDilate;
+
+    CardFinder cardFinder;
 
     //debug stuff
     Spinner cameraView;
@@ -65,6 +69,8 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         javaCameraView = (JavaCameraView) findViewById(R.id.java_camera_view);
         javaCameraView.setVisibility(SurfaceView.VISIBLE);
@@ -129,13 +135,15 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
 
     @Override
     public void onCameraViewStarted(int width, int height) {
+
+        cardFinder = new CardFinder(width,height);
         mRgba = new Mat(height,width, CvType.CV_8UC4);
-        imgGray = new Mat(height,width, CvType.CV_8UC1);
+        /*imgGray = new Mat(height,width, CvType.CV_8UC1);
         imgBlur = new Mat(height,width, CvType.CV_8UC1);
         imgCanny = new Mat(height,width, CvType.CV_8UC1);
         imgHSV = new Mat(height,width, CvType.CV_8UC3);
         imgContours  = new Mat(height,width, CvType.CV_8UC3);
-        imgDilate = new Mat(height,width, CvType.CV_8UC1);
+        imgDilate = new Mat(height,width, CvType.CV_8UC1);*/
     }
 
     @Override
@@ -149,7 +157,8 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
         mRgba = inputFrame.rgba();
 
         try {
-            //Convert to Grayscale
+            return cardFinder.debugDisplay(mRgba);
+            /*//Convert to Grayscale
             Imgproc.cvtColor(mRgba,imgGray,Imgproc.COLOR_RGB2GRAY);
 
             //Blur Image
@@ -215,7 +224,7 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
             }
             else{
                 return imgCanny;
-            }
+            }*/
         }catch(NumberFormatException e){
             Log.e(TAG,e.toString());
 
