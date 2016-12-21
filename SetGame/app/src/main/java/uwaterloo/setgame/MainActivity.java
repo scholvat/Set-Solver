@@ -118,11 +118,13 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
         mRgba = inputFrame.rgba();
 
         try {
-            return cardFinder.debugDisplay(mRgba);
+            //imgDisplay = mRgba.clone();
+            cardFinder.findCards(mRgba);
+            return mRgba;
         }catch(NumberFormatException | CvException e){
             Log.e(TAG,e.toString());
         }
-        return mRgba;
+        return null;
 
 
     }

@@ -1,5 +1,7 @@
 package uwaterloo.setgame.cv;
 
+import android.util.Log;
+
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -23,6 +25,8 @@ import uwaterloo.setgame.util.cardfeatures.Shape;
  * Created by Stephen on 12/20/2016.
  */
 public class CardFinder {
+    private static final String TAG="CardFinder";
+
     Card card;
     int w,h;
 
@@ -32,25 +36,17 @@ public class CardFinder {
         this.h=h;
     }
 
-    public Deck findCards(Mat img){
-        //apply filters
-        applyFilters(img,7,50,150);
-        //findRect
+    public Deck findCards(Mat imgSrc){
+
+        Mat img = applyFilters(imgSrc,7,50,150);
         List<MatOfPoint> rectangles = findRect(img, 15);
+        Imgproc.drawContours(imgSrc,rectangles,-1,new Scalar(255,0,0),4);
+
         //Refilter Rectangle
         //Verify Card
         //Detect Card attributes
         //Return Card
         return null;
-    }
-
-    public Mat debugDisplay(Mat imgSrc){
-        Mat img = imgSrc.clone();
-        //This method should only be used for debug purposes to display information to screen
-        img = applyFilters(img,7,50,150);
-        List<MatOfPoint> rectangles = findRect(img, 15);
-        Imgproc.drawContours(imgSrc,rectangles,-1,new Scalar(255,0,0),4);
-        return imgSrc;
     }
 
     private Mat applyFilters(Mat imgSrc, int blur,int canny1, int canny2){
