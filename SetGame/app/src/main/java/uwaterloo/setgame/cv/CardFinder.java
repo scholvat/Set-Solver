@@ -1,10 +1,14 @@
 package uwaterloo.setgame.cv;
 
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,13 +43,17 @@ public class CardFinder {
         return null;
     }
 
-    public Mat debugDisplay(Mat img){
+    public Mat debugDisplay(Mat imgSrc){
+        Mat img = imgSrc.clone();
         //This method should only be used for debug purposes to display information to screen
-        applyFilters(img,7,50,150);
-        return img;
+        img = applyFilters(img,7,50,150);
+        List<MatOfPoint> rectangles = findRect(img, 15);
+        Imgproc.drawContours(imgSrc,rectangles,-1,new Scalar(255,0,0),4);
+        return imgSrc;
     }
 
-    private Mat applyFilters(Mat img, int blur,int canny1, int canny2){
+    private Mat applyFilters(Mat imgSrc, int blur,int canny1, int canny2){
+        Mat img = imgSrc.clone();
         //Convert to Grayscale
         Imgproc.cvtColor(img,img,Imgproc.COLOR_RGB2GRAY);
 
@@ -60,10 +68,38 @@ public class CardFinder {
         return img;
     }
 
-    private List<MatOfPoint> findRect(){
+    private List<MatOfPoint> findRect(Mat imgSrc, int polygonThreshold){
+        Mat img = imgSrc.clone();
         //Find Contours
-        //Find Rectangles
-        return null;
+        List<MatOfPoint> contours = new ArrayList<>();
+        Imgproc.findContours(img,contours,new Mat(),Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+
+        //approx polygons
+        //Log.d(TAG,"Size of contours: " + String.valueOf(contours.size()));
+        //if(contours.size()>500){return mRgba;}
+
+        MatOfPoint2f contours2f = new MatOfPoint2f();  //converts contours from MatOfPoints to MatOfPoints2f
+        MatOfPoint2f approx = new MatOfPoint2f();      //resulting MatOfPoint2f from apporxPolyDP
+        List<MatOfPoint> polygons = new ArrayList<>(); //Resulting polygonal contours, which hopefully consist of cards
+
+        //loop through all contours
+        for(int i=0; i<contours.size();i++){
+            //convert contour to MatOfPoint2f
+            contours.get(i).convertTo(contours2f, CvType.CV_32FC2);
+
+            //approximate polygons, using t1 as epsilon for debugging
+            Imgproc.approxPolyDP(contours2f, approx, polygonThreshold, true);
+
+            //check if it is a rectangle
+            if(approx.rows()==4){
+                //convert and add to polygons (type Contours)
+                MatOfPoint points = new MatOfPoint(approx.toArray());
+                polygons.add(points);
+            }
+
+            //Log.d(TAG, String.valueOf(approx.rows()));
+        }
+        return polygons;
     }
 
     private Card detectAttributes(){
