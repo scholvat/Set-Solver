@@ -12,6 +12,7 @@ import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvException;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 import uwaterloo.setgame.cv.CardFinder;
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
     @Override
     public void onCameraViewStarted(int width, int height) {
         cardFinder = new CardFinder(width,height);
+        //imgDisplay = new Mat(width,height, CvType.CV_8UC4);
     }
 
     @Override
@@ -118,9 +120,7 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
         mRgba = inputFrame.rgba();
 
         try {
-            //imgDisplay = mRgba.clone();
-            cardFinder.findCards(mRgba);
-            return mRgba;
+            return cardFinder.findCards(mRgba);
         }catch(NumberFormatException | CvException e){
             Log.e(TAG,e.toString());
         }
