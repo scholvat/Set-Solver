@@ -1,5 +1,7 @@
 package uwaterloo.setgame.cv;
 
+import android.util.Log;
+
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -12,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uwaterloo.setgame.util.Card;
-import uwaterloo.setgame.util.Deck;
 import uwaterloo.setgame.util.cardfeatures.Color;
 import uwaterloo.setgame.util.cardfeatures.Fill;
 import uwaterloo.setgame.util.cardfeatures.Shape;
@@ -28,20 +29,35 @@ public class CardFinder {
         this.h=h;
     }
 
-    public Deck findCards(Mat imgSrc){
-        Mat imgOriginal = imgSrc.clone();
+    public Mat findCards(Mat imgSrc){
+        //Mat imgOriginal = imgSrc.clone();
+        //Mat imgRectangle = imgSrc.clone();
         //Filter image
-        Mat img = applyFilters(imgSrc,7,50,150);
+        Mat img = applyFilters(imgSrc,9,50,150);
+        //applyFilters(imgSrc,1,50,150).copyTo(imgSrc);
+
         //Find Rectangles
         List<MatOfPoint> rectangles = findRect(img, 15);
+
+        //Mat mask = new Mat(imgOriginal.width(),imgOriginal.height(),imgOriginal.type());
+        //mask = imgOriginal.clone();
+        //Mat mask = Mat.zeros(imgOriginal.width(),imgOriginal.height(),imgOriginal.type()).clone();
+        //Imgproc.fillPoly(mask,rectangles,new Scalar(255,0,0));
+        //refilter Rectangle
+
         //Draw Rectangles to Screen in Red
+        //Imgproc.fillPoly(imgSrc,rectangles,new Scalar(255,0,0));
         Imgproc.drawContours(imgSrc,rectangles,-1,new Scalar(255,0,0),4);
+        //mask.copyTo(imgSrc);
+        //imgRectangle = Mat.zeros(w,h,imgSrc.type());
+        //imgOriginal.copyTo(imgSrc,mask);
 
         //Refilter Rectangle
         //Verify Card
         //Detect Card attributes
         //Return Card
-        return null;
+        //return img;
+        return imgSrc;
     }
 
     private Mat applyFilters(Mat imgSrc, int blur,int canny1, int canny2){
@@ -56,7 +72,7 @@ public class CardFinder {
         Imgproc.GaussianBlur(img, img, new Size(blur,blur),0);
 
         //Canny
-        Imgproc.Canny(img,img,canny1,canny2); //50,150
+        Imgproc.Canny(img,img,canny1,canny2);
         return img;
     }
 
@@ -68,7 +84,7 @@ public class CardFinder {
 
         //approx polygons
         //Log.d(TAG,"Size of contours: " + String.valueOf(contours.size()));
-        //if(contours.size()>500){return mRgba;}
+        if(contours.size()>200){return new ArrayList<>();}
 
         MatOfPoint2f contours2f = new MatOfPoint2f();  //converts contours from MatOfPoints to MatOfPoints2f
         MatOfPoint2f approx = new MatOfPoint2f();      //resulting MatOfPoint2f from apporxPolyDP
@@ -83,7 +99,7 @@ public class CardFinder {
             Imgproc.approxPolyDP(contours2f, approx, polygonThreshold, true);
 
             //check if it is a rectangle
-            if(approx.rows()==4){
+            if(approx.rows()==4 && Imgproc.contourArea(approx)>1000){
                 //convert and add to polygons (type Contours)
                 MatOfPoint points = new MatOfPoint(approx.toArray());
                 polygons.add(points);
@@ -94,9 +110,16 @@ public class CardFinder {
         return polygons;
     }
 
-    private Card detectAttributes(){
+    private Card detectAttributes(MatOfPoint2f rect, Mat imgSrc){
+        List<MatOfPoint> cardShapes = findRect(imgSrc,5);
+        for(int i=0; i<cardShapes.size();i++){
+            cardShapes.get(i);
+            Log.d(TAG, String.valueOf(cardShapes.size()));
+        }
+
         return null;
     }
+
     private int detectNumber(){
         return -1;
     }
