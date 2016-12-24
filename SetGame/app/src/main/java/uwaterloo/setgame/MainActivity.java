@@ -1,5 +1,6 @@
 package uwaterloo.setgame;
 
+import android.app.ActivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
     //debug stuff
     EditText b1,b2,b3,t1,t2,t3;
 
+    ActivityManager.MemoryInfo mi;
+
     JavaCameraView javaCameraView;
     BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -55,6 +58,11 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //memory monitor
+        mi = new ActivityManager.MemoryInfo();
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        activityManager.getMemoryInfo(mi);
 
         //init Camera View
         javaCameraView = (JavaCameraView) findViewById(R.id.java_camera_view);
@@ -105,7 +113,8 @@ public class MainActivity extends AppCompatActivity  implements CameraBridgeView
 
     @Override
     public void onCameraViewStarted(int width, int height) {
-        cardFinder = new CardFinder(width,height);
+            cardFinder = new CardFinder(width,height);
+
         //imgDisplay = new Mat(width,height, CvType.CV_8UC4);
     }
 

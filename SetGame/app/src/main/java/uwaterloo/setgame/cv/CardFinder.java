@@ -30,34 +30,40 @@ public class CardFinder {
     }
 
     public Mat findCards(Mat imgSrc){
-        //Mat imgOriginal = imgSrc.clone();
-        //Mat imgRectangle = imgSrc.clone();
-        //Filter image
-        Mat img = applyFilters(imgSrc,9,50,150);
-        //applyFilters(imgSrc,1,50,150).copyTo(imgSrc);
 
-        //Find Rectangles
-        List<MatOfPoint> rectangles = findRect(img, 15);
+            //Mat imgOriginal = imgSrc.clone();
+            //Mat imgRectangle = imgSrc.clone();
+            //Filter image
+            Mat img = applyFilters(imgSrc, 9, 50, 150);
 
-        //Mat mask = new Mat(imgOriginal.width(),imgOriginal.height(),imgOriginal.type());
-        //mask = imgOriginal.clone();
-        //Mat mask = Mat.zeros(imgOriginal.width(),imgOriginal.height(),imgOriginal.type()).clone();
-        //Imgproc.fillPoly(mask,rectangles,new Scalar(255,0,0));
-        //refilter Rectangle
+            //Find Rectangles
+            List<MatOfPoint> rectangles = findRect(img, 15);
 
-        //Draw Rectangles to Screen in Red
-        //Imgproc.fillPoly(imgSrc,rectangles,new Scalar(255,0,0));
-        Imgproc.drawContours(imgSrc,rectangles,-1,new Scalar(255,0,0),4);
-        //mask.copyTo(imgSrc);
-        //imgRectangle = Mat.zeros(w,h,imgSrc.type());
-        //imgOriginal.copyTo(imgSrc,mask);
+            //Mat mask = new Mat(imgOriginal.width(),imgOriginal.height(),imgOriginal.type());
+            //mask = imgOriginal.clone();
 
-        //Refilter Rectangle
-        //Verify Card
-        //Detect Card attributes
-        //Return Card
-        //return img;
-        return imgSrc;
+
+            //Imgproc.fillPoly(mask,rectangles,new Scalar(255,0,0));
+            //refilter Rectangle
+
+            //Draw Rectangles to Screen in Red
+            Mat mask = imgSrc.clone();
+            //img.setTo(new Scalar(255, 255, 255));
+            mask.setTo(new Scalar(0, 0, 0));
+            Imgproc.fillPoly(mask, rectangles, new Scalar(255, 255, 255));
+            //Imgproc.drawContours(imgSrc,rectangles,-1,new Scalar(255,0,0),4);
+            //mask.copyTo(imgSrc);
+            //imgRectangle = Mat.zeros(w,h,imgSrc.type());
+            imgSrc.copyTo(img, mask);
+
+
+            //Refilter Rectangle
+            //Verify Card
+            //Detect Card attributes
+            //Return Card
+            //return img;
+
+            return img;
     }
 
     private Mat applyFilters(Mat imgSrc, int blur,int canny1, int canny2){
@@ -87,7 +93,7 @@ public class CardFinder {
         if(contours.size()>200){return new ArrayList<>();}
 
         MatOfPoint2f contours2f = new MatOfPoint2f();  //converts contours from MatOfPoints to MatOfPoints2f
-        MatOfPoint2f approx = new MatOfPoint2f();      //resulting MatOfPoint2f from apporxPolyDP
+        MatOfPoint2f approx = new MatOfPoint2f();      //resulting MatOfPoint2f from approxPolyDP
         List<MatOfPoint> polygons = new ArrayList<>(); //Resulting polygonal contours, which hopefully consist of cards
 
         //loop through all contours
